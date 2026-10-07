@@ -1,0 +1,39 @@
+# WaBlast HIMASIF — web + worker share volume ./data
+services:
+  init:
+    build: .
+    command: npm run init-db
+    environment:
+      DATA_DIR: /app/data
+      SEED_KETUA_PW: ${SEED_KETUA_PW:-himasif2026}
+      SEED_OPERATOR_PW: ${SEED_OPERATOR_PW:-operator2026}
+    volumes:
+      - ./data:/app/data
+    restart: "no"
+
+  web:
+    build: .
+    command: npm start
+    environment:
+      DATA_DIR: /app/data
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  worker:
+    build: .
+    command: npm run worker
+    environment:
+      DATA_DIR: /app/data
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully

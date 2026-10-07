@@ -1,0 +1,23 @@
+{
+  "name": "himasif-wablast",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "worker": "node worker/index.js",
+    "init-db": "node scripts/init-db.js",
+    "reset-data": "node scripts/reset-data.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.16",
+    "bcryptjs": "^2.4.3",
+    "next": "^15.1.6",
+    "pino": "^9.6.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
